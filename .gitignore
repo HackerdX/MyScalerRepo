@@ -28,6 +28,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 /LLD Practice/TicTacToe/.idea
-/TicTacToe/TicTacToe.iml
+/LLD Practice/TicTacToe.iml
 .idea
 LLD Practicals.iml
