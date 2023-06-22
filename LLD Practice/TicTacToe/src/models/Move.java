@@ -1,15 +1,19 @@
 package models;
 
 public class Move {
-    private Cell Cell;
+    private Cell cell;
     private Player player;
 
+    public Move(Cell cell, Player player){
+        this.cell = cell;
+        this.player = player;
+    }
     public models.Cell getCell() {
-        return Cell;
+        return this.cell;
     }
 
     public void setCell(models.Cell cell) {
-        Cell = cell;
+        this.cell = cell;
     }
 
     public Player getPlayer() {
