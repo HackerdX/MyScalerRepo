@@ -6,6 +6,9 @@ import models.Symbol;
 import models.enumPackage.BotDifficultyLevel;
 import models.enumPackage.GameState;
 import models.enumPackage.PlayerType;
+import strategies.winningStrategies.ColumnWinningStrategy;
+import strategies.winningStrategies.DiagonalWinningStrategy;
+import strategies.winningStrategies.RowWinningStrategy;
 import strategies.winningStrategies.WinningStrategy;
 
 import java.util.ArrayList;
@@ -24,7 +27,11 @@ public class Main {
             playerList.add(new Player(new Symbol('X'), "Anmol", 1L, PlayerType.HUMAN));
             playerList.add(new Bot( new Symbol('O'), "GPT", 2L, BotDifficultyLevel.MEDIUM));
 
-            List<WinningStrategy> winningStrategies = new ArrayList<>();
+            List<WinningStrategy> winningStrategies = List.of(
+                    new RowWinningStrategy(),
+                    new ColumnWinningStrategy(),
+                    new DiagonalWinningStrategy()
+            );
 
             Game game = new Game(dimensionOfBoard, playerList, winningStrategies);
 
@@ -37,10 +44,18 @@ public class Main {
 
             }
 
+            System.out.println("GAME IS FINISHED!");
+            GameState state = gameController.checkState(game);
+
+            if(state.equals(GameState.DRAW)){
+                System.out.println("Game is a DRAW!");
+            } else if(state.equals(GameState.WIN)){
+                System.out.println("Winner is: "+gameController.getWinner(game).getName());
+            }
         } catch (Exception e){
             System.out.println("Something went wrong");
         }
-        System.out.println("GAME IS CREATED!");
+
 //        System.out.println("WELCOME TO TIC TAC TOE GAME!");
 //        GameController gameController = new GameController();
 //        while(gameController.getGameStatus().equals(GameState.IN_PROGRESS)){

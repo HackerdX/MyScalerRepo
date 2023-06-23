@@ -33,8 +33,8 @@ public class GameController {
         return game.getGameState();
     }
 
-    void getWinner(Game game){
-
+    public Player getWinner(Game game){
+        return game.getWinner();
     }
 
     public void printBoard(Game game){

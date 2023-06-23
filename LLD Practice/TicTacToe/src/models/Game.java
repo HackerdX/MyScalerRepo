@@ -6,6 +6,9 @@ import Exceptions.PlayersCountDimensionMismatchException;
 import models.enumPackage.CellState;
 import models.enumPackage.GameState;
 import models.enumPackage.PlayerType;
+import strategies.winningStrategies.ColumnWinningStrategy;
+import strategies.winningStrategies.DiagonalWinningStrategy;
+import strategies.winningStrategies.RowWinningStrategy;
 import strategies.winningStrategies.WinningStrategy;
 
 import java.util.*;
@@ -41,8 +44,8 @@ public class Game {
 
         private int dimension;
 
-        private List<Player> playerList = new ArrayList<>();
-        private List<WinningStrategy> winningStrategies = new ArrayList<>();
+        private List<Player> playerList;
+        private List<WinningStrategy> winningStrategies;
 
         private Builder() {
             this.dimension = 0;
@@ -211,7 +214,9 @@ public class Game {
 
     private boolean checkWinner(Board board, Move move){
         for(WinningStrategy winningStrategy: winningStrategies){
-            if(winningStrategy.checkWinner(board, move)) return true;
+            if(winningStrategy.checkWinner(board, move)) {
+                return true;
+            }
         }
         return false;
     }
@@ -247,8 +252,8 @@ public class Game {
         if(checkWinner(board, finalMove)){
             gameState = GameState.WIN;
             winner = currentPlayer;
+            return;
         }
-
         // If we don't find the winner and all the cell(moves) are exhausted of either players!!
         // State of game => to check if DRAW
         int boardSize = this.board.getSize();
